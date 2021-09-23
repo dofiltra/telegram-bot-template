@@ -4,7 +4,7 @@ import App from '../app'
 import { InlineKeyboardButton, Message } from 'typegram'
 import path from 'path'
 import { CallbackQuery } from 'telegraf/typings/core/types/typegram'
-// import { safeLoad } from 'js-yaml'
+import yaml from 'js-yaml'
 
 export default class Languages {
   private static localeActions: string[] = []
@@ -43,26 +43,26 @@ export default class Languages {
   static languageKeyboard() {
     const locales = Languages.localesFiles()
     const result: (InlineKeyboardButton & { hide?: boolean | undefined })[][] = []
-    // locales.forEach((locale, index) => {
-    //   const localeCode = locale.split('.')[0]
-    //   const localeName = safeLoad(
-    //     readFileSync(path.join(`${__dirname}/../../locales/${locale})`, 'utf8')
-    //   ).name
-    //   if (index % 2 == 0) {
-    //     if (index === 0) {
-    //       result.push([m.button.callback(localeName, localeCode)])
-    //     } else {
-    //       result[result.length - 1].push(
-    //         m.button.callback(localeName, localeCode)
-    //       )
-    //     }
-    //   } else {
-    //     result[result.length - 1].push(m.button.callback(localeName, localeCode))
-    //     if (index < locales.length - 1) {
-    //       result.push([])
-    //     }
-    //   }
-    // })
+
+    locales.forEach((locale, index) => {
+      const localeCode = locale.split('.')[0]
+      const localeData = yaml.load(readFileSync(path.join(`${App.rootPath}/locales/${locale}`), 'utf8'))
+      const localeName = localeData.name
+      console.log(localeName)
+      if (index % 2 == 0) {
+        if (index === 0) {
+          return result.push([m.button.callback(localeName, localeCode)])
+        }
+
+        return result[result.length - 1].push(m.button.callback(localeName, localeCode))
+      }
+
+      result[result.length - 1].push(m.button.callback(localeName, localeCode))
+      if (index < locales.length - 1) {
+        result.push([])
+      }
+    })
+
     return m.inlineKeyboard(result)
   }
 
