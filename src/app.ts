@@ -2,7 +2,6 @@ import path from 'path'
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
 import { TG } from './services/tg'
-import 'module-alias/register'
 
 export class App {
   static version = 1

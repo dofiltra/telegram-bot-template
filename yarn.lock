@@ -23,11 +23,6 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@types/module-alias@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@types/module-alias/-/module-alias-2.0.1.tgz"
-  integrity sha512-DN/CCT1HQG6HquBNJdLkvV+4v5l/oEuwOHUPLxI+Eub0NED+lk0YUfba04WGH90EINiUrNgClkNnwGmbICeWMQ==
-
 "@types/node@^16.9.2":
   version "16.9.2"
   resolved "https://registry.npmjs.org/@types/node/-/node-16.9.2.tgz"
@@ -169,7 +164,7 @@ concat-map@0.0.1:
 
 concurrently@^6.2.1:
   version "6.2.1"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.2.1.tgz#d880fc1d77559084732fa514092a3d5109a0d5bf"
+  resolved "https://registry.npmjs.org/concurrently/-/concurrently-6.2.1.tgz"
   integrity sha512-emgwhH+ezkuYKSHZQ+AkgEpoUZZlbpPVYCVv7YZx0r+T7fny1H03r2nYRebpi2DudHR4n1Rgbo2YTxKOxVJ4+g==
   dependencies:
     chalk "^4.1.0"
