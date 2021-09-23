@@ -9,7 +9,8 @@ export default class I18NHelper {
     defaultLanguage: 'en',
     sessionName: 'session',
     useSession: false,
-    allowMissing: false
+    allowMissing: true,
+    defaultLanguageOnMissing: true
   })
 
   attachI18N(ctx: Context, next: () => void) {
