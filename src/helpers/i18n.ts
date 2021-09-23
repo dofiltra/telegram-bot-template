@@ -13,8 +13,7 @@ export default class I18NHelper {
   })
 
   attachI18N(ctx: Context, next: () => void) {
-    const anyI18N = ctx.i18n as any
-    anyI18N.locale(ctx.dbuser.language)
+    ctx.i18n.locale(ctx.dbuser.language)
     return next()
   }
 }
