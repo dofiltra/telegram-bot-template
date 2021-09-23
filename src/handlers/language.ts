@@ -22,8 +22,10 @@ export default class Languages {
   }
 
   static async setLanguage(ctx: Context) {
-    let { callbackQuery = {} as CallbackQuery, dbuser: user, message = {} as Message } = ctx
-    if (!('data' in callbackQuery)) {
+    let { callbackQuery = {} as CallbackQuery, dbuser: user } = ctx
+    const message = callbackQuery.message
+
+    if (!('data' in callbackQuery) || !message) {
       return
     }
 
