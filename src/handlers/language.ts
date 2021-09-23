@@ -1,8 +1,9 @@
 import { Context, Markup as m } from 'telegraf'
 import { readdirSync, readFileSync, stat } from 'fs'
 import App from '../app'
-import { InlineKeyboardButton } from 'typegram'
+import { InlineKeyboardButton, Message } from 'typegram'
 import path from 'path'
+import { CallbackQuery } from 'telegraf/typings/core/types/typegram'
 // import { safeLoad } from 'js-yaml'
 
 export default class Languages {
@@ -21,23 +22,22 @@ export default class Languages {
   }
 
   static async setLanguage(ctx: Context) {
-    let user = ctx.dbuser
-    // if ('data' in ctx.callbackQuery) {
-    //   user.language = ctx.callbackQuery.data
-    //   user = await (user as any).save()
-    //   const message = ctx.callbackQuery.message
+    let { callbackQuery = {} as CallbackQuery, dbuser: user, message = {} as Message } = ctx
+    if (!('data' in callbackQuery)) {
+      return
+    }
 
-    //   const anyI18N = ctx.i18n as any
-    //   anyI18N.locale(ctx.callbackQuery.data)
+    user.language = callbackQuery.data
+    user = await user.save()
+    ctx.i18n.locale(callbackQuery.data)
 
-    //   await ctx.telegram.editMessageText(
-    //     message.chat.id,
-    //     message.message_id,
-    //     undefined,
-    //     ctx.i18n.t('language_selected'),
-    //     { parse_mode: 'HTML' }
-    //   )
-    // }
+    await ctx.telegram.editMessageText(
+      message.chat.id,
+      message.message_id,
+      undefined,
+      ctx.i18n.t('language_selected'),
+      { parse_mode: 'HTML' }
+    )
   }
 
   static languageKeyboard() {
