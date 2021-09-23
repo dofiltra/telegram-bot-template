@@ -1,11 +1,16 @@
-type TDefSettings = {}
+import { TG } from './services/tg'
 
-class Def {
-  private _settings: TDefSettings
+export class App {
+  static version = 1
 
-  constructor(s: TDefSettings) {
-    this._settings = { ...s }
+  start(tokens?: string) {
+    if (!tokens) {
+      return console.error(`Required 'TOKENS' in '.env'`)
+    }
+
+    console.log(`App.starting... v${App.version}`)
+    tokens.split(';').forEach(async (token) => await new TG({ token }).start())
   }
 }
 
-export { Def }
+new App().start(process.env.TOKENS)

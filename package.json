@@ -2,8 +2,8 @@
   "name": "telegram-bot-template",
   "version": "1.0.1",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/app.js",
+  "types": "dist/app.d.ts",
   "type": "module",
   "scripts": {
     "start": "yarn run build && node --trace-warnings --experimental-modules --es-module-specifier-resolution=node ./dist/app.js",
@@ -42,6 +42,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "esm-requirer": "^1.0.3",
+    "telegraf": "^4.4.2",
     "time-helpers": "^1.0.0"
   }
 }
