@@ -2,13 +2,16 @@ import path from 'path'
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
 import { TG } from './services/tg'
+import { MongooseHelper } from './models'
 
-export class App {
+export default class App {
   static version = 1
   static rootPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
+  static env = process.env
 
   constructor() {
     dotenv.config({ path: `${App.rootPath}/.env` })
+    MongooseHelper.init()
   }
 
   async start(tokens?: string) {
@@ -21,4 +24,4 @@ export class App {
   }
 }
 
-new App().start(process.env.TOKENS)
+new App().start(App.env.TOKENS)

@@ -1,4 +1,9 @@
+import { sendHelp } from '../handlers/sendHelp'
+import I18NHelper from '../helpers/i18n'
+import { attachUser } from '../middlewares/attachUser'
+import { ignoreOldMessageUpdates } from '../middlewares/ignoreOldMessageUpdates'
 import { Telegraf } from 'telegraf'
+import Languages from '../handlers/language'
 
 type TBotSettings = {
   token: string
@@ -15,26 +20,27 @@ class TG {
 
   async start() {
     const bot = this.bot
+    const i18NHelper= new I18NHelper()
 
     // // Middlewares
-    // bot.use(ignoreOldMessageUpdates)
-    // bot.use(attachUser)
-    // bot.use(i18n.middleware(), attachI18N)
+    bot.use(ignoreOldMessageUpdates)
+    bot.use(attachUser)
+    bot.use(i18NHelper.i18n.middleware(), i18NHelper.attachI18N)
 
-    // // Commands
-    // bot.command(['help', 'start'], sendHelp)
-    // bot.command('language', sendLanguage)
+    // Commands
+    bot.command(['help', 'start'], sendHelp)
+    bot.command('language', Languages.sendLanguage)
 
-    // // Actions
-    // bot.action(localeActions, setLanguage)
+    // Actions
+    bot.action(Languages.getLocaleActions(), Languages.setLanguage)
 
-    // // Errors
-    // bot.catch(console.error)
+    // Errors
+    bot.catch(console.error)
 
-    // // Start bot
-    // bot.launch().then(() => {
-    //   console.info(`Bot '${bot.botInfo.username}' is up and running`)
-    // })
+    // Start bot
+    bot.launch().then(() => {
+      console.info(`Bot '${bot.botInfo!.username}' is up and running`)
+    })
   }
 }
 
