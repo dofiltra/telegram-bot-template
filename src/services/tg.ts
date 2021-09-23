@@ -20,7 +20,7 @@ class TG {
 
   async start() {
     const bot = this.bot
-    const i18NHelper= new I18NHelper()
+    const i18NHelper = new I18NHelper()
 
     // // Middlewares
     bot.use(ignoreOldMessageUpdates)
@@ -38,9 +38,8 @@ class TG {
     bot.catch(console.error)
 
     // Start bot
-    bot.launch().then(() => {
-      console.info(`Bot '${bot.botInfo!.username}' is up and running`)
-    })
+    await bot.launch()
+    console.info(`Bot '${bot.botInfo!.username}' is up and running`)
   }
 }
 

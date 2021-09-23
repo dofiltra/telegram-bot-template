@@ -10,7 +10,7 @@ export default class App {
   static env = process.env
 
   constructor() {
-    dotenv.config({ path: `${App.rootPath}/.env` })
+    dotenv.config({ path: path.join(App.rootPath, `.env`) })
     MongooseHelper.init()
   }
 

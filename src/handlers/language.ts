@@ -1,10 +1,10 @@
-import { Context, Markup as m } from 'telegraf'
-import { readdirSync, readFileSync, stat } from 'fs'
-import App from '../app'
-import { InlineKeyboardButton, Message } from 'typegram'
 import path from 'path'
-import { CallbackQuery } from 'telegraf/typings/core/types/typegram'
 import yaml from 'js-yaml'
+import App from '../app'
+import { Context, Markup as m } from 'telegraf'
+import { readdirSync, readFileSync } from 'fs'
+import { InlineKeyboardButton, Message } from 'typegram'
+import { CallbackQuery } from 'telegraf/typings/core/types/typegram'
 
 export default class Languages {
   private static localeActions: string[] = []
@@ -48,7 +48,7 @@ export default class Languages {
       const localeCode = locale.split('.')[0]
       const localeData = yaml.load(readFileSync(path.join(`${App.rootPath}/locales/${locale}`), 'utf8'))
       const localeName = localeData.name
-      console.log(localeName)
+
       if (index % 2 == 0) {
         if (index === 0) {
           return result.push([m.button.callback(localeName, localeCode)])
@@ -67,6 +67,6 @@ export default class Languages {
   }
 
   static localesFiles() {
-    return readdirSync(path.join(`${App.rootPath}/locales`))
+    return readdirSync(path.join(App.rootPath, `locales`))
   }
 }
